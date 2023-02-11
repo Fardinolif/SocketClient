@@ -1,0 +1,35 @@
+package com.company;
+
+import java.io.*;
+import java.net.Socket;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader reader = new BufferedReader(new FileReader("C:/Users/fardin.hussain.CZ/IdeaProjects/SocketClient/src/com/company/client.txt"));
+        String line = reader.readLine();
+        while(line!=null) {
+            line = reader.readLine();
+            System.out.println(line);
+        }
+        String [] dati = new String [9100];
+        int k = 0;
+        while(k != 9099) {
+            Socket s = new Socket("192.168.8.23",
+                    2841);
+            PrintWriter p = new PrintWriter(s.getOutputStream(), true);
+            p.println(dati[k].substring(0,5));
+            p.println("ciao server");
+
+            //legge il file
+
+            InputStreamReader i = new InputStreamReader(s.getInputStream());
+            BufferedReader br = new BufferedReader(i);
+            System.out.println("il sever riceve: " + br.readLine());
+            k++;
+            s.close();
+
+        }
+    }
+}
